@@ -14,35 +14,34 @@ int b1, int b2, int b3, double itr)
 {
 	if(!((b1<=b2)&(b2<=b3)&(b3>b1)))
 	{
-	return 0;
+		return 0;
 	}
 
 	//Checking that diff of masses are ok.
 	for(int j = b1;j < b3;j++){
-	if(DiffVec[j]) return 0;
+		if(DiffVec[j]) return 0;
 	}
-	//std::cout << b1 << " " << b2 << " " << b3 << std::endl;
 	int range_c = (b2-b1)>(b3-b2) ? b3-b2 : b2-b1;
+
 	//We chose to consider intensity as the max of the detected peaks.
 	double max_int = 0;
 	double accu_int = 0;
-	//std::cout <<"accuint_"<<std::endl;
 	for(int j = b1; j<=b3; j++)
 	{
-	if(intensity[j]>max_int) max_int = intensity[j];
-	accu_int += intensity[j];
+		if(intensity[j]>max_int) max_int = intensity[j];
+		accu_int += intensity[j];
 	}
 	if(accu_int<itr)
 	{
-	return 1;
+		return 1;
 	}
 	double accu_mz = 0;
 	
 	double accu_int_p = 0;
 	for(int j = b2-range_c; j<=b2+range_c; j++)
 	{
-	accu_mz += mz[j]*intensity[j];
-	accu_int_p += intensity[j];
+		accu_mz += mz[j]*intensity[j];
+		accu_int_p += intensity[j];
 	}
 	accu_mz /= accu_int_p;
 	BufferMz[i] = accu_mz;
@@ -55,7 +54,7 @@ void checkBufferSize(std::vector<double>& BufferMz,std::vector<double>& BufferIn
 {
 	if(i<SIZE_BUFF)
 	{
-	return;
+		return;
 	}
 	cmz.insert( cmz.end() , BufferMz.begin() , BufferMz.end());
 	cint.insert( cint.end() , BufferInt.begin() , BufferInt.end());
